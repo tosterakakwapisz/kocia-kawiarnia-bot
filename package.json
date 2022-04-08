@@ -1,0 +1,22 @@
+{
+  "name": "kocia-kawiarnia-bot",
+  "version": "0.0.1",
+  "description": "Discord bot for Kocia Kawiarnia",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tosterakakwapisz/kocia-kawiarnia-bot.git"
+  },
+  "author": "TheToster",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tosterakakwapisz/kocia-kawiarnia-bot/issues"
+  },
+  "homepage": "https://github.com/tosterakakwapisz/kocia-kawiarnia-bot#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0"
+  }
+}
