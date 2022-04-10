@@ -1,9 +1,11 @@
-import { Message } from "discord.js";
+import { CommandInteraction } from "discord.js";
 
 /**
  * Plays ping pong with ppl
- * @param {Message} message
+ * @param {CommandInteraction} interaction
  */
-export function ping(message) {
-  message.reply('Pong!');
+export function ping(interaction) {
+  interaction.reply({
+    content: 'Pong!', ephemeral: true
+  });
 }

@@ -27,6 +27,23 @@ const client = new Client({
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+
+  const guild = client.guilds.cache.get('908154532972863528');
+  let commands = (guild) ? guild.commands : client.application?.commands;
+
+  commands?.create({
+    name: 'ping',
+    description: 'Replies with pong',
+  });
+});
+
+client.on('interactionCreate', interaction => {
+  if (!interaction.isCommand()) return;
+
+  switch (interaction.commandName) {
+    case 'ping': ping(interaction); break;
+    default: console.log(`Couldn't recognize command`, interaction); break;
+  }
 });
 
 client.on('guildMemberAdd', onGuildMemberAdd);
@@ -34,7 +51,7 @@ client.on('guildMemberAdd', onGuildMemberAdd);
 client.on('messageCreate', async msg => {
   let command = msg.content.split(' ')[0];
   switch (command) {
-    case `${config.prefix}ping`: ping(msg); break;
+    // case `${config.prefix}ping`: ping(msg); break;
     case `${config.prefix}info`: info(msg); break;
   }
 });
