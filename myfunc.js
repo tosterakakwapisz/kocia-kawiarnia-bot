@@ -7,7 +7,7 @@ import profanityList from './profanityList.js';
  */
 export function isNameOk(name) {
   try {
-    for (word of profanityList.words) {
+    for (let word of profanityList.words) {
       if (name.includes(word)) return false;
     }
     return true;
