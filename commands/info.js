@@ -1,10 +1,10 @@
-const { Message, MessageEmbed } = require("discord.js");
+import { Message, MessageEmbed } from "discord.js";
 
 /**
  * Shows info about user
  * @param {Message} message
  */
-module.exports = function info(message) {
+export function info(message) {
   try {
     message.mentions.members.forEach(member => {
       let diff = Math.abs(member.user.createdTimestamp - member.joinedTimestamp);

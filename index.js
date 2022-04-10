@@ -1,6 +1,9 @@
-const { Client, Intents } = require('discord.js');
-const info = require('./commands/info');
-const ping = require('./commands/ping');
+import { Client, Intents } from 'discord.js';
+import { info } from './commands/info.js';
+import { ping } from './commands/ping.js';
+import { onGuildMemberAdd } from './events/onGuildMemberAdd.js';
+import config from './config.js';
+
 const client = new Client({
   intents: [
     Intents.FLAGS.GUILDS,
@@ -21,8 +24,6 @@ const client = new Client({
     Intents.FLAGS.GUILD_SCHEDULED_EVENTS
   ]
 });
-const config = require('./config.json');
-const onGuildMemberAdd = require('./events/onGuildMemberAdd.js');
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);

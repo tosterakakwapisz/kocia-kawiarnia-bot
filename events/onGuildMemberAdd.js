@@ -1,11 +1,11 @@
-const { GuildMember, MessageEmbed } = require('discord.js');
-const config = require('../config.json');
+import { GuildMember, MessageEmbed } from 'discord.js';
+import config from '../config.js';
 
 /**
  * Handles guildMemberAdd event
  * @param {GuildMember} member added member
  */
-module.exports = async function onGuildMemberAdd(member) {
+export async function onGuildMemberAdd(member) {
   try {
     const channel = await member.guild.channels.fetch(config.newMemberChannel);
     let diff = Math.abs(member.user.createdTimestamp - member.joinedTimestamp);
