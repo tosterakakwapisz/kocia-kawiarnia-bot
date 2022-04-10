@@ -1,5 +1,6 @@
 import { GuildMember, MessageEmbed } from 'discord.js';
 import config from '../config.js';
+import { isNameOk } from '../myfunc.js';
 
 /**
  * Handles guildMemberAdd event
@@ -10,7 +11,11 @@ export async function onGuildMemberAdd(member) {
     const channel = await member.guild.channels.fetch(config.newMemberChannel);
     let diff = Math.abs(member.user.createdTimestamp - member.joinedTimestamp);
     const day = (24 * 3600 * 1000);
-    let color = (diff < day) ? "RED" : "DARK_GREEN";
+    let color = "DARK_GREEN";
+    if (
+      (diff < day) ||
+      !isNameOk(member.displayName)
+    ) color = "RED";
 
     let tag = member.user.tag;
     let id = member.id;

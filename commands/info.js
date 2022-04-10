@@ -1,4 +1,5 @@
 import { CommandInteraction, GuildMember, MessageEmbed } from "discord.js";
+import { isNameOk } from "../myfunc";
 
 /**
  * Shows info about user
@@ -14,7 +15,11 @@ export async function info(interaction) {
 
     let diff = Math.abs(member.user.createdTimestamp - member.joinedTimestamp);
     const day = (24 * 3600 * 1000);
-    let color = (diff < day) ? "RED" : "DARK_GREEN";
+    let color = "DARK_GREEN";
+    if (
+      (diff < day) ||
+      !isNameOk(member.displayName)
+    ) color = "RED";
 
     let tag = member.user.tag;
     let id = member.id;
