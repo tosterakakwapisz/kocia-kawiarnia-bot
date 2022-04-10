@@ -40,3 +40,5 @@ client.on('messageCreate', async msg => {
 });
 
 client.login(config.token);
+
+console.log('test commit');
