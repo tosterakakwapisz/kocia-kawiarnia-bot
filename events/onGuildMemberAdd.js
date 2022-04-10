@@ -13,15 +13,16 @@ export async function onGuildMemberAdd(member) {
     let color = (diff < day) ? "RED" : "DARK_GREEN";
 
     let fields = [
-      { name: 'User ID', value: member.user.id },
+      { name: 'User tag', value: tag },
+      { name: 'User', value: `<@${id}>` },
+      { name: 'User ID', value: id },
       { name: 'Joined', value: member.joinedAt.toString() },
       { name: 'Created at', value: member.user.createdAt.toString() }
     ];
     let embed = new MessageEmbed()
       .setColor(color)
       .setTitle('Nowy użytkownik')
-      .setDescription('Szczegóły:')
-      .setThumbnail(member.avatarURL())
+      .setThumbnail(member.user.avatarURL())
       .addFields(fields);
     channel.send({ embeds: [embed] });
   } catch (err) {
