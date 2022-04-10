@@ -1,5 +1,5 @@
 import { CommandInteraction, GuildMember, MessageEmbed } from "discord.js";
-import { isNameOk } from "../myfunc";
+import { isNameOk } from "../myfunc.js";
 
 /**
  * Shows info about user
