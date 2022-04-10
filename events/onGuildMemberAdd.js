@@ -12,6 +12,8 @@ export async function onGuildMemberAdd(member) {
     const day = (24 * 3600 * 1000);
     let color = (diff < day) ? "RED" : "DARK_GREEN";
 
+    let tag = member.user.tag;
+    let id = member.id;
     let fields = [
       { name: 'User tag', value: tag },
       { name: 'User', value: `<@${id}>` },
