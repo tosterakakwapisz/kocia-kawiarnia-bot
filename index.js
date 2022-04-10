@@ -3,6 +3,7 @@ import { info } from './commands/info.js';
 import { ping } from './commands/ping.js';
 import { onGuildMemberAdd } from './events/onGuildMemberAdd.js';
 import config from './config.js';
+import createCommands from './createCommands.js';
 
 const client = new Client({
   intents: [
@@ -28,13 +29,9 @@ const client = new Client({
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
-  const guild = client.guilds.cache.get('908154532972863528');
+  const guild = client.guilds.cache.get(config.guildID);
   let commands = (guild) ? guild.commands : client.application?.commands;
-
-  commands?.create({
-    name: 'ping',
-    description: 'Replies with pong',
-  });
+  createCommands(commands);
 });
 
 client.on('interactionCreate', interaction => {
@@ -42,18 +39,11 @@ client.on('interactionCreate', interaction => {
 
   switch (interaction.commandName) {
     case 'ping': ping(interaction); break;
+    case 'info': info(interaction); break;
     default: console.log(`Couldn't recognize command`, interaction); break;
   }
 });
 
 client.on('guildMemberAdd', onGuildMemberAdd);
-
-client.on('messageCreate', async msg => {
-  let command = msg.content.split(' ')[0];
-  switch (command) {
-    // case `${config.prefix}ping`: ping(msg); break;
-    case `${config.prefix}info`: info(msg); break;
-  }
-});
 
 client.login(config.token);
