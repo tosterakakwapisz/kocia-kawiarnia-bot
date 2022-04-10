@@ -1,29 +1,36 @@
-import { Message, MessageEmbed } from "discord.js";
+import { CommandInteraction, GuildMember, MessageEmbed } from "discord.js";
 
 /**
  * Shows info about user
- * @param {Message} message
+* @param {CommandInteraction} interaction interaction object
  */
-export function info(message) {
+export async function info(interaction) {
   try {
-    message.mentions.members.forEach(member => {
-      let diff = Math.abs(member.user.createdTimestamp - member.joinedTimestamp);
-      const day = (24 * 3600 * 1000);
-      let color = (diff < day) ? "RED" : "DARK_GREEN";
+    await interaction.deferReply({ ephemeral: false });
 
-      let fields = [
-        { name: 'User ID', value: member.user.id },
-        { name: 'Joined', value: member.joinedAt.toString() },
-        { name: 'Created at', value: member.user.createdAt.toString() }
-      ];
-      let embed = new MessageEmbed()
-        .setColor(color)
-        .setTitle('Nowy użytkownik')
-        .setDescription('Szczegóły:')
-        .setThumbnail(member.avatarURL())
-        .addFields(fields);
-      message.reply({ embeds: [embed] });
-    });
+    /** @type {GuildMember} */
+    let member = interaction.options.getMember('user');
+    if (!member) return await interaction.editReply('No valid member passed');
+
+    let diff = Math.abs(member.user.createdTimestamp - member.joinedTimestamp);
+    const day = (24 * 3600 * 1000);
+    let color = (diff < day) ? "RED" : "DARK_GREEN";
+
+    let tag = member.user.tag;
+    let id = member.id;
+    let fields = [
+      { name: 'User tag', value: tag },
+      { name: 'User', value: `<@${id}>` },
+      { name: 'User ID', value: id },
+      { name: 'Joined', value: member.joinedAt.toString() },
+      { name: 'Created at', value: member.user.createdAt.toString() }
+    ];
+    let embed = new MessageEmbed()
+      .setColor(color)
+      .setTitle(`Info o ${tag}`)
+      .setThumbnail(member.user.avatarURL())
+      .addFields(fields);
+    await interaction.editReply({ embeds: [embed] });
   } catch (err) {
     console.log(err);
   }
